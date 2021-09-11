@@ -1,7 +1,7 @@
-name = "test-worker"
+name = "fate-bot"
 type = "javascript"
 
-account_id = ""
+account_id = "a3673bb565d54299326f31c3ff95fe8e"
 workers_dev = true
 route = ""
 zone_id = ""
