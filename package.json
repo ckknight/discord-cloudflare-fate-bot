@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "discord-cloudflare-fate-bot",
+  "version": "1.0.0",
+  "description": "A discord bot that runs on Cloudflare Workers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'"
+  },
+  "author": "Cameron Knight <ckknight@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.4.0"
+  }
+}
