@@ -3,15 +3,21 @@
   "name": "discord-cloudflare-fate-bot",
   "version": "1.0.0",
   "description": "A discord bot that runs on Cloudflare Workers",
-  "main": "index.js",
+  "main": "dist/worker.js",
   "scripts": {
+    "build": "webpack",
     "test": "ava",
     "format": "prettier --write '**/*.{js,css,json,md}'"
   },
   "author": "Cameron Knight <ckknight@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@cloudflare/workers-types": "^2.2.2",
     "ava": "^3.15.0",
-    "prettier": "^2.4.0"
+    "prettier": "^2.4.0",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.3",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
   }
 }
