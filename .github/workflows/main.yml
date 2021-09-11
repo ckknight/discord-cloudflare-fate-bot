@@ -22,7 +22,7 @@ jobs:
     - run: npm test
 
     - name: Publish to cloudflare (production)
-      if: github.ref == format('refs/heads/{0]', $default-branch)
+      if: github.ref == format('refs/heads/{0}', $default-branch)
       uses: cloudflare/wrangler-action@1.3.0
       with:
         apiToken: ${{ secrets.CF_API_TOKEN }}
