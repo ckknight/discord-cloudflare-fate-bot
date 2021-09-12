@@ -59,16 +59,22 @@ export const eightBall: ApplicationCommandPair = [
       },
     ],
   },
-  () => {
-    const allOptions = possibilities.flatMap(({ emoji, options }) =>
-      options.map((text) => ({ emoji, text })),
+  (interaction) => {
+    const question = interaction.data?.options?.find(
+      ({ name }) => name === 'question',
+    )?.value;
+    const picked = random.pick(
+      possibilities.flatMap(({ emoji, options }) =>
+        options.map((text) => ({ emoji, text })),
+      ),
     );
-    const picked = random.pick(allOptions);
 
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `${picked.text} ${picked.emoji}`,
+        content: `${question != null ? `${question} - ` : ''}${picked.text} ${
+          picked.emoji
+        }`,
       },
     };
   },
