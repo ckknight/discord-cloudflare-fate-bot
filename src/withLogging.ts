@@ -13,7 +13,16 @@ export function withLogging(
           console.log('response:', response);
           return response;
         } catch (error) {
-          console.error(error);
+          if (error instanceof Error) {
+            console.error({
+              ...error,
+              name: error.name,
+              message: error.message,
+              stack: error.stack,
+            });
+          } else {
+            console.error(error);
+          }
           throw error;
         }
       },
