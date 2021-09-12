@@ -6,7 +6,7 @@ export const hello: ApplicationCommandPair = [
     name: 'hello',
     description: 'Bot will say hello to you!',
   },
-  async (interaction) => {
+  (interaction) => {
     const userID = interaction.member.user.id;
 
     return {

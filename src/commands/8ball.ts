@@ -1,4 +1,7 @@
-import { InteractionResponseType } from '@glenstack/cf-workers-discord-bot';
+import {
+  ApplicationCommandOptionType,
+  InteractionResponseType,
+} from '@glenstack/cf-workers-discord-bot';
 import { random } from '../random';
 import { ApplicationCommandPair } from '../types';
 
@@ -47,10 +50,16 @@ export const eightBall: ApplicationCommandPair = [
   {
     name: '8ball',
     description: 'Shake the 8-ball and see your results',
+    options: [
+      {
+        type: ApplicationCommandOptionType.STRING,
+        name: 'question',
+        description: 'The question you wish to ask the magic 8-ball',
+        required: false,
+      },
+    ],
   },
-  async (interaction) => {
-    const userID = interaction.member.user.id;
-
+  () => {
     const allOptions = possibilities.flatMap(({ emoji, options }) =>
       options.map((text) => ({ emoji, text })),
     );
