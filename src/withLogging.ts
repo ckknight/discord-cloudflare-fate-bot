@@ -7,9 +7,15 @@ export function withLogging(
     ([command, handler]): ApplicationCommandPair => [
       command,
       async (interaction) => {
-        const response = await handler(interaction);
-        console.log(response);
-        return response;
+        try {
+          console.log('interaction:', interaction);
+          const response = await handler(interaction);
+          console.log('response:', response);
+          return response;
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
       },
     ],
   );
