@@ -1,6 +1,7 @@
 /// <reference lib="WebWorker" />
 /// <reference types="@cloudflare/workers-types" />
 
+import './polyfills';
 import {
   createSlashCommandHandler,
   ApplicationCommand,

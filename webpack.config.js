@@ -12,6 +12,7 @@ module.exports = {
       fs: path.resolve(__dirname, "./null.js"),
     },
   },
+  // devtool: 'cheap-module-source-map',
   target: "webworker",
   mode: 'production',
   resolve: {
