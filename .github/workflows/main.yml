@@ -3,26 +3,32 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [14.x]
-    
+
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - run: npm ci
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    - run: npm test
+      - run: npm ci
 
-    - name: Publish to cloudflare (production)
-      if: github.ref == 'refs/heads/main'
-      uses: cloudflare/wrangler-action@1.3.0
-      with:
-        apiToken: ${{ secrets.CF_API_TOKEN }}
+      - run: npm test
+
+      - name: Publish to cloudflare (production)
+        if: github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+
+      - name: GET /setup
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: 'https://fate-bot.cameron-knight.workers.dev/setup'
+          method: 'GET'
