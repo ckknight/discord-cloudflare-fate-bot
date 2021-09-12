@@ -29,6 +29,10 @@ jobs:
 
       - name: GET /setup
         uses: fjogeleit/http-request-action@master
+        id: setupRequest
         with:
           url: 'https://fate-bot.cameron-knight.workers.dev/setup'
           method: 'GET'
+
+      - name: Show Response
+        run: echo ${{ steps.setupRequest.outputs.response }}
