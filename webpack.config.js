@@ -9,6 +9,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
+      crypto: path.resolve(__dirname, "./null.js"),
       fs: path.resolve(__dirname, "./null.js"),
     },
   },
