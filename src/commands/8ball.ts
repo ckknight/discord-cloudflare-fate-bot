@@ -72,7 +72,7 @@ export const eightBall: ApplicationCommandPair = [
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `${question != null ? `${question} - ` : ''}${picked.text} ${
+        content: `:8ball: ${question != null ? `${question} - ` : ''}${picked.text} ${
           picked.emoji
         }`,
       },
