@@ -7,7 +7,7 @@ import { ApplicationCommandPair } from '../types';
 export const vamp: ApplicationCommandPair = [
   {
     name: 'vamp',
-    description: 'Roll some :vampire: dice!',
+    description: 'Roll some 🧛🏻 dice!',
     options: [
       {
         type: ApplicationCommandOptionType.INTEGER,
