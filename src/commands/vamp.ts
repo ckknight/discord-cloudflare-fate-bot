@@ -24,7 +24,7 @@ export const vamp: ApplicationCommandPair = [
         required: true,
       },
       {
-        type: ApplicationCommandOptionType.INTEGER,
+        type: ApplicationCommandOptionType.BOOLEAN,
         name: 'rouse',
         description:
           'Number of rouse checks',
@@ -39,9 +39,9 @@ export const vamp: ApplicationCommandPair = [
     const hunger: number = interaction.data?.options?.find(
       ({ name }) => name === 'hunger',
     )?.value ?? 0;
-    const rouse: number = interaction.data?.options?.find(
+    const rouse: boolean = interaction.data?.options?.find(
       ({ name }) => name === 'rouse',
-    )?.value ?? 0;
+    )?.value ?? false;
 
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
