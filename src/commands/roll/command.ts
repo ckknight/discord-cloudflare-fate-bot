@@ -1,14 +1,7 @@
 import {
   ApplicationCommandOptionType,
-  InteractionResponseType,
 } from '@glenstack/cf-workers-discord-bot';
-import { random } from '../../random';
 import { ApplicationCommandPair } from '../../types';
-import { calculateRolls } from './calculateRolls';
-import { calculateTotal } from './calculateTotal';
-import { emojify } from './emojify';
-import { stringify } from './stringify';
-import { tokenize } from './tokenize';
 
 export const roll: ApplicationCommandPair = [
   {
@@ -24,28 +17,11 @@ export const roll: ApplicationCommandPair = [
       },
     ],
   },
-  (interaction) => {
+  async (interaction) => {
     const unparsedDiceValue = interaction.data?.options?.find(
       ({ name }) => name === 'dice',
     )?.value;
-    try {
-      const tokens = tokenize(unparsedDiceValue);
-      const rolls = calculateRolls(tokens, random);
-
-      return {
-        type: InteractionResponseType.ChannelMessageWithSource,
-        data: {
-          content: `Rolling ${stringify(tokens)}: ${emojify(tokens, rolls)} = ${calculateTotal(tokens, rolls)}`,
-        },
-      };
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      return {
-        type: InteractionResponseType.ChannelMessageWithSource,
-        data: {
-          content: `Error rolling ${unparsedDiceValue}: ${message}`,
-        },
-      };
-    }
+    const { rollImpl } = await import('./commandImpl');
+    return rollImpl(unparsedDiceValue);
   },
 ];

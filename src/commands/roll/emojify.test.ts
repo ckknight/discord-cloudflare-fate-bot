@@ -1,14 +1,13 @@
 import test, { ExecutionContext } from 'ava';
-import { Random, MersenneTwister19937 } from 'random-js';
+import { MersenneTwister19937 } from 'random-js';
 import { calculateRolls } from './calculateRolls';
 import { emojify } from './emojify';
 import { fixtures } from './fixtures';
 import { tokenize } from './tokenize';
 
 function macro(t: ExecutionContext) {
-  const random = new Random(MersenneTwister19937.seed(1234));
   const tokens = tokenize(t.title);
-  const rolls = calculateRolls(tokens, random);
+  const rolls = calculateRolls(tokens, MersenneTwister19937.seed(1234));
   t.snapshot(emojify(tokens, rolls), `with rolls ${JSON.stringify(rolls)}`);
 }
 
