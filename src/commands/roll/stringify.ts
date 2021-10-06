@@ -3,7 +3,9 @@ import { Token } from "./tokenize";
 function stringifyToken(token: Token) {
   switch (token.type) {
     case 'dice':
-      if (token.min === 1) {
+      if (token.min === -1 && token.max === 1) {
+        return `${token.count}dF`;
+      } else if (token.min === 1) {
         return `${token.count}d${token.max}`;
       } else {
         return `${token.count}d${token.min}..${token.max}`;
