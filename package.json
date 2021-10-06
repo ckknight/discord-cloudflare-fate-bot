@@ -28,11 +28,11 @@
     "random-js": "^2.1.0"
   },
   "ava": {
-		"typescript": {
-			"rewritePaths": {
-				"src/": "build/"
-			},
-			"compile": "tsc"
-		}
-	}
+    "typescript": {
+      "rewritePaths": {
+        "src/": "build/"
+      },
+      "compile": "tsc"
+    }
+  }
 }
