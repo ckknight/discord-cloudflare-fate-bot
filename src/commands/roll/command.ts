@@ -28,14 +28,24 @@ export const roll: ApplicationCommandPair = [
     const unparsedDiceValue = interaction.data?.options?.find(
       ({ name }) => name === 'dice',
     )?.value;
-    const tokens = tokenize(unparsedDiceValue);
-    const rolls = calculateRolls(tokens, random);
+    try {
+      const tokens = tokenize(unparsedDiceValue);
+      const rolls = calculateRolls(tokens, random);
 
-    return {
-      type: InteractionResponseType.ChannelMessageWithSource,
-      data: {
-        content: `Rolling ${stringify(tokens)}: ${emojify(tokens, rolls)} = ${calculateTotal(tokens, rolls)}`,
-      },
-    };
+      return {
+        type: InteractionResponseType.ChannelMessageWithSource,
+        data: {
+          content: `Rolling ${stringify(tokens)}: ${emojify(tokens, rolls)} = ${calculateTotal(tokens, rolls)}`,
+        },
+      };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      return {
+        type: InteractionResponseType.ChannelMessageWithSource,
+        data: {
+          content: `Error rolling ${unparsedDiceValue}: ${message}`,
+        },
+      };
+    }
   },
 ];
