@@ -111,3 +111,5 @@ pkg/
 wasm-pack.log
 worker/
 .cargo-ok
+
+build

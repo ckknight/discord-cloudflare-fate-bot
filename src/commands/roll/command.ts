@@ -2,7 +2,13 @@ import {
   ApplicationCommandOptionType,
   InteractionResponseType,
 } from '@glenstack/cf-workers-discord-bot';
-import { ApplicationCommandPair } from '../types';
+import { random } from '../../random';
+import { ApplicationCommandPair } from '../../types';
+import { calculateRolls } from './calculateRolls';
+import { calculateTotal } from './calculateTotal';
+import { emojify } from './emojify';
+import { stringify } from './stringify';
+import { tokenize } from './tokenize';
 
 export const roll: ApplicationCommandPair = [
   {
@@ -22,11 +28,13 @@ export const roll: ApplicationCommandPair = [
     const unparsedDiceValue = interaction.data?.options?.find(
       ({ name }) => name === 'dice',
     )?.value;
+    const tokens = tokenize(unparsedDiceValue);
+    const rolls = calculateRolls(tokens, random);
 
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `Rolling \`${unparsedDiceValue}\``,
+        content: `Rolling ${stringify(tokens)}: ${emojify(tokens, rolls)} = ${calculateTotal(tokens, rolls)}`,
       },
     };
   },
