@@ -10,7 +10,7 @@ export const date: ApplicationCommandPair = [
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `It is currently ${new Date().toString()}`,
+        content: `It is currently ${new Date().toString()}!`,
       },
     };
   },
