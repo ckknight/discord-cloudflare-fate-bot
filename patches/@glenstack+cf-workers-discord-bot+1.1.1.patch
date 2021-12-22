@@ -1,8 +1,25 @@
 diff --git a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
-index d3c8ab0..297cc2c 100644
+index d3c8ab0..e345418 100644
 --- a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
 +++ b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
-@@ -55,11 +55,14 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
+@@ -44,9 +44,15 @@ const deleteExistingCommands = ({ applicationID }, authedFetch) => __awaiter(voi
+         });
+     }));
+ });
++function promiseAllSeq(promiseFns) {
++    promiseFns.reduce((acc, promiseFn) =>
++        acc.then(() => promiseFn()),
++        Promise.resolve()
++    );
++}
+ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(void 0, void 0, void 0, function* () {
+     const url = `https://discord.com/api/v8/applications/${applicationID}/commands`;
+-    const promises = commands.map(([command, handler]) => __awaiter(void 0, void 0, void 0, function* () {
++    const promiseFns = commands.map(([command, handler]) => () => __awaiter(void 0, void 0, void 0, function* () {
+         const request = new Request(url, {
+             method: "POST",
+             body: JSON.stringify(command),
+@@ -55,15 +61,18 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
          const error = new Error(`Setting command ${command.name} failed!`);
          try {
              const response = yield authedFetch(request);
@@ -18,3 +35,8 @@ index d3c8ab0..297cc2c 100644
              throw error;
          }
      }));
+-    return yield Promise.all(promises)
++    return yield promiseAllSeq(promiseFns)
+         .then(() => new Response("OK"))
+         .catch((e) => new Response(e.message, { status: 502 }));
+ });
