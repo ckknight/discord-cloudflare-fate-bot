@@ -7,7 +7,7 @@ index d3c8ab0..08464af 100644
      }));
  });
 +function promiseAllSeq(promiseFns) {
-+    promiseFns.reduce((acc, promiseFn) =>
++    return promiseFns.reduce((acc, promiseFn) =>
 +        acc.then(() => promiseFn()),
 +        Promise.resolve()
 +    );
@@ -46,7 +46,7 @@ index d3c8ab0..08464af 100644
          }
 -        catch (_a) {
 +        catch (error) {
-+            console.error('big failure', { name: error.name, message: error.message, ...error });
++            console.error('big failure', { name: error.name, message: error.message, stack: error.stack, ...error });
              return new Response("Failed to authenticate with Discord. Are the Application ID and secret set correctly?", { status: 407 });
          }
      });
