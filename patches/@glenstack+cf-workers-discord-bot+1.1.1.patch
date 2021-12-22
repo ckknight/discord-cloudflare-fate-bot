@@ -1,8 +1,8 @@
 diff --git a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
-index d3c8ab0..08464af 100644
+index d3c8ab0..c7d5362 100644
 --- a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
 +++ b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
-@@ -44,9 +44,15 @@ const deleteExistingCommands = ({ applicationID }, authedFetch) => __awaiter(voi
+@@ -44,9 +44,19 @@ const deleteExistingCommands = ({ applicationID }, authedFetch) => __awaiter(voi
          });
      }));
  });
@@ -19,38 +19,38 @@ index d3c8ab0..08464af 100644
      const url = `https://discord.com/api/v8/applications/${applicationID}/commands`;
 -    const promises = commands.map(([command, handler]) => __awaiter(void 0, void 0, void 0, function* () {
 +    const promiseFns = commands.map(([command, handler]) => () => __awaiter(void 0, void 0, void 0, function* () {
++        yield delay(3000);
          const request = new Request(url, {
              method: "POST",
              body: JSON.stringify(command),
-@@ -55,15 +61,18 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
+@@ -55,15 +65,18 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
          const error = new Error(`Setting command ${command.name} failed!`);
          try {
              const response = yield authedFetch(request);
 -            if (!response.ok)
 +            if (!response.ok) {
-+                console.error('bad response', response);
++                console.log(response);
                  throw error;
 +            }
              return response;
          }
          catch (e) {
-+            console.error('well dang', e);
++            console.log({ name: e.name, message: e.message, stack: e.stack, ...e });
              throw error;
          }
-+        yield delay(3000);
      }));
 -    return yield Promise.all(promises)
 +    return yield promiseAllSeq(promiseFns)
          .then(() => new Response("OK"))
          .catch((e) => new Response(e.message, { status: 502 }));
  });
-@@ -79,7 +88,8 @@ exports.setup = ({ applicationID, applicationSecret, commands, }) => {
+@@ -79,7 +92,8 @@ exports.setup = ({ applicationID, applicationSecret, commands, }) => {
              yield deleteExistingCommands({ applicationID }, authedFetch);
              return yield createCommands({ applicationID, commands }, authedFetch);
          }
 -        catch (_a) {
-+        catch (error) {
-+            console.error('big failure', { name: error.name, message: error.message, stack: error.stack, ...error });
++        catch (e) {
++            console.log({ name: e.name, message: e.message, stack: e.stack, ...e });
              return new Response("Failed to authenticate with Discord. Are the Application ID and secret set correctly?", { status: 407 });
          }
      });
