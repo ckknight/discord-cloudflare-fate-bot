@@ -12,6 +12,9 @@ index d3c8ab0..08464af 100644
 +        Promise.resolve()
 +    );
 +}
++function delay(ms) {
++    return new Promise(r => setTimeout(r, ms));
++}
  const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(void 0, void 0, void 0, function* () {
      const url = `https://discord.com/api/v8/applications/${applicationID}/commands`;
 -    const promises = commands.map(([command, handler]) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,6 +37,7 @@ index d3c8ab0..08464af 100644
 +            console.error('well dang', e);
              throw error;
          }
++        yield delay(3000);
      }));
 -    return yield Promise.all(promises)
 +    return yield promiseAllSeq(promiseFns)
