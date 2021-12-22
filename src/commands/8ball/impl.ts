@@ -45,7 +45,7 @@ const possibilities = [
   },
 ];
 
-export function eightBallImpl(
+export function eightBall(
   question: string | undefined,
 ): InteractionResponse | Promise<InteractionResponse> {
   const picked = pick(

@@ -21,7 +21,7 @@ export const roll: ApplicationCommandPair = [
     const unparsedDiceValue = interaction.data?.options?.find(
       ({ name }) => name === 'dice',
     )?.value;
-    const { rollImpl } = await import('./commandImpl');
-    return rollImpl(unparsedDiceValue);
+    const { roll: impl } = await import('./commandImpl');
+    return impl(unparsedDiceValue);
   },
 ];

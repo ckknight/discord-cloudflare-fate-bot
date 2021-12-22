@@ -6,7 +6,7 @@ import { emojify } from "./emojify";
 import { stringify } from "./stringify";
 import { tokenize } from "./tokenize";
 
-export function rollImpl(input: string): InteractionResponse | Promise<InteractionResponse> {
+export function roll(input: string): InteractionResponse | Promise<InteractionResponse> {
   try {
     const tokens = tokenize(input);
     const rolls = calculateRolls(tokens, nativeMath);

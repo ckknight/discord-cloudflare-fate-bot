@@ -20,7 +20,7 @@ export const eightBall: ApplicationCommandPair = [
     const question = interaction.data?.options?.find(
       ({ name }) => name === 'question',
     )?.value;
-    const { eightBallImpl } = await import('./impl');
-    return eightBallImpl(question);
+    const { eightBall: impl } = await import('./impl');
+    return impl(question);
   },
 ];
