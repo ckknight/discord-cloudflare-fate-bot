@@ -1,0 +1,20 @@
+diff --git a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
+index d3c8ab0..297cc2c 100644
+--- a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
++++ b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
+@@ -55,11 +55,14 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
+         const error = new Error(`Setting command ${command.name} failed!`);
+         try {
+             const response = yield authedFetch(request);
+-            if (!response.ok)
++            if (!response.ok) {
++                console.log(response);
+                 throw error;
++            }
+             return response;
+         }
+         catch (e) {
++            console.log(e);
+             throw error;
+         }
+     }));
