@@ -25,13 +25,13 @@ index d3c8ab0..08464af 100644
              const response = yield authedFetch(request);
 -            if (!response.ok)
 +            if (!response.ok) {
-+                console.log(response);
++                console.error('bad response', response);
                  throw error;
 +            }
              return response;
          }
          catch (e) {
-+            console.log(e);
++            console.error('well dang', e);
              throw error;
          }
      }));
@@ -46,7 +46,7 @@ index d3c8ab0..08464af 100644
          }
 -        catch (_a) {
 +        catch (error) {
-+            console.log(error);
++            console.error('big failure', error);
              return new Response("Failed to authenticate with Discord. Are the Application ID and secret set correctly?", { status: 407 });
          }
      });
