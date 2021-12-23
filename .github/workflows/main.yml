@@ -33,6 +33,7 @@ jobs:
         with:
           url: 'https://fate-bot.cameron-knight.workers.dev/setup'
           method: 'GET'
+          timeout: 60000
 
       - name: Show Response
         run: echo ${{ steps.setupRequest.outputs.response }}
