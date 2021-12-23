@@ -57,8 +57,8 @@ export function pick(
     data: {
       content: `:black_joker: ${items
         .map((value, index) => `${emojifyNumber(index + 1)} ${value}`)
-        // make the picked one bold
-        .map((text, index) => (index === pickedIndex ? `*${text}*` : text))
+        // make the picked one bold and italic
+        .map((text, index) => (index === pickedIndex ? `***${text}***` : text))
         .join(' ')}`,
     },
   };
