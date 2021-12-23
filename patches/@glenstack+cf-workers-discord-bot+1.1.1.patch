@@ -1,5 +1,5 @@
 diff --git a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
-index d3c8ab0..0b22747 100644
+index d3c8ab0..d7497d3 100644
 --- a/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
 +++ b/node_modules/@glenstack/cf-workers-discord-bot/dist/setup.js
 @@ -44,9 +44,19 @@ const deleteExistingCommands = ({ applicationID }, authedFetch) => __awaiter(voi
@@ -23,11 +23,23 @@ index d3c8ab0..0b22747 100644
          const request = new Request(url, {
              method: "POST",
              body: JSON.stringify(command),
-@@ -55,15 +65,18 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
+@@ -55,15 +65,30 @@ const createCommands = ({ applicationID, commands, }, authedFetch) => __awaiter(
          const error = new Error(`Setting command ${command.name} failed!`);
          try {
              const response = yield authedFetch(request);
 -            if (!response.ok)
++            const remaining = Number(response.headers.get('x-ratelimit-remaining'));
++            if (Number.isFinite(remaining) && remaining < 1) {
++                console.log('detected no requests remaining');
++                const resetAfter = Number(response.headers.get('x-ratelimit-reset-after'));
++                if (Number.isFinite(resetAfter)) {
++                    console.log(`waiting ${(resetAfter + 1) * 1000} ms`);
++                    yield delay((resetAfter + 1) * 1000);
++                } else {
++                    console.log('could not detect when reset occurs, waiting 5000 ms');
++                    yield delay(5000);
++                }
++            }
 +            if (!response.ok) {
 +                console.log({ ...response, headers: Array.from(response.headers.entries()) });
                  throw error;
@@ -44,7 +56,7 @@ index d3c8ab0..0b22747 100644
          .then(() => new Response("OK"))
          .catch((e) => new Response(e.message, { status: 502 }));
  });
-@@ -79,7 +92,8 @@ exports.setup = ({ applicationID, applicationSecret, commands, }) => {
+@@ -79,7 +104,8 @@ exports.setup = ({ applicationID, applicationSecret, commands, }) => {
              yield deleteExistingCommands({ applicationID }, authedFetch);
              return yield createCommands({ applicationID, commands }, authedFetch);
          }
