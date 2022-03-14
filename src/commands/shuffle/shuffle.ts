@@ -1,9 +1,7 @@
-import {
-  ApplicationCommandOptionType,
-} from '@glenstack/cf-workers-discord-bot';
-import { ApplicationCommandPair } from '../../types';
+import { ApplicationCommandOptionType } from '@glenstack/cf-workers-discord-bot';
+import { createCommandPair } from '../../utils/createCommandPair';
 
-export const shuffle: ApplicationCommandPair = [
+export const shuffle = createCommandPair(
   {
     name: 'shuffle',
     description: 'Shuffle a list of items',
@@ -11,21 +9,18 @@ export const shuffle: ApplicationCommandPair = [
       {
         type: ApplicationCommandOptionType.STRING,
         name: 'items',
-        description: 'The items to shuffle, separated by a semicolon `;`, comma `,`, or spaces',
+        description:
+          'The items to shuffle, separated by a semicolon `;`, comma `,`, or spaces',
         required: true,
       },
     ],
   },
-  async (interaction) => {
-    const items = interaction.data?.options?.find(
-      ({ name }) => name === 'items',
-    )?.value;
-    const { shuffle: impl } = await import('./impl');
-    return impl(items);
+  async (_interaction, { items }: { items: string }) => {
+    return (await import('./impl')).shuffle(items);
   },
-];
+);
 
-export const pick: ApplicationCommandPair = [
+export const pick = createCommandPair(
   {
     name: 'pick',
     description: 'Pick from a list of items',
@@ -33,16 +28,13 @@ export const pick: ApplicationCommandPair = [
       {
         type: ApplicationCommandOptionType.STRING,
         name: 'items',
-        description: 'The items to pick from, separated by a semicolon `;`, comma `,`, or spaces',
+        description:
+          'The items to pick from, separated by a semicolon `;`, comma `,`, or spaces',
         required: true,
       },
     ],
   },
-  async (interaction) => {
-    const items = interaction.data?.options?.find(
-      ({ name }) => name === 'items',
-    )?.value;
-    const { pick: impl } = await import('./impl');
-    return impl(items);
+  async (_interaction, { items }: { items: string }) => {
+    return (await import('./impl')).pick(items);
   },
-];
+);

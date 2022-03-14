@@ -3,7 +3,7 @@
 import './polyfills';
 import { createSlashCommandHandler } from '@glenstack/cf-workers-discord-bot';
 import { commands } from './commands';
-import { withLogging } from './withLogging';
+import { withLogging } from './utils/withLogging';
 import { calculateCommandsHash } from './utils/calculateCommandsHash';
 
 declare const APPLICATION_SECRET: string;

@@ -1,9 +1,7 @@
-import {
-  ApplicationCommandOptionType,
-} from '@glenstack/cf-workers-discord-bot';
-import { ApplicationCommandPair } from '../../types';
+import { ApplicationCommandOptionType } from '@glenstack/cf-workers-discord-bot';
+import { createCommandPair } from '../../utils/createCommandPair';
 
-export const eightBall: ApplicationCommandPair = [
+export const eightBall = createCommandPair(
   {
     name: '8ball',
     description: 'Shake the 8-ball and see your results',
@@ -16,11 +14,7 @@ export const eightBall: ApplicationCommandPair = [
       },
     ],
   },
-  async (interaction) => {
-    const question = interaction.data?.options?.find(
-      ({ name }) => name === 'question',
-    )?.value;
-    const { eightBall: impl } = await import('./impl');
-    return impl(question);
+  async (_interaction, { question }: { question: string }) => {
+    return (await import('./impl')).eightBall(question);
   },
-];
+);

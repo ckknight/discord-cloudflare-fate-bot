@@ -1,9 +1,9 @@
 import {
   ApplicationCommandOptionType,
 } from '@glenstack/cf-workers-discord-bot';
-import { ApplicationCommandPair } from '../../types';
+import { createCommandPair } from '../../utils/createCommandPair';
 
-export const roll: ApplicationCommandPair = [
+export const roll = createCommandPair(
   {
     name: 'roll',
     description: 'Roll some dice!',
@@ -17,11 +17,7 @@ export const roll: ApplicationCommandPair = [
       },
     ],
   },
-  async (interaction) => {
-    const unparsedDiceValue = interaction.data?.options?.find(
-      ({ name }) => name === 'dice',
-    )?.value;
-    const { roll: impl } = await import('./commandImpl');
-    return impl(unparsedDiceValue);
+  async (_interaction, { dice: unparsedDiceValue }: { dice: string }) => {
+    return (await import('./commandImpl')).roll(unparsedDiceValue);
   },
-];
+);

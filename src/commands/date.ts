@@ -1,7 +1,7 @@
 import { InteractionResponseType } from '@glenstack/cf-workers-discord-bot';
-import { ApplicationCommandPair } from '../types';
+import { createCommandPair } from '../utils/createCommandPair';
 
-export const date: ApplicationCommandPair = [
+export const date = createCommandPair(
   {
     name: 'date',
     description: 'What is the current date and time?',
@@ -14,4 +14,4 @@ export const date: ApplicationCommandPair = [
       },
     };
   },
-];
+)
