@@ -14,7 +14,17 @@ const slashCommandHandler = createSlashCommandHandler({
   commands: withLogging(commands),
 });
 
+const LOG_FETCH = true as boolean;
+
 addEventListener('fetch', (event) => {
-  console.log('fetch', { request: event.request });
+  if (LOG_FETCH) {
+    console.log('fetch', {
+      method: event.request.method,
+      url: event.request.url,
+      headers: Object.fromEntries(event.request.headers.entries()),
+      redirect: event.request.redirect,
+      cf: event.request.cf,
+    });
+  }
   event.respondWith(slashCommandHandler(event.request));
 });
