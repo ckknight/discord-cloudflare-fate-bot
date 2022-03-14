@@ -15,5 +15,6 @@ const slashCommandHandler = createSlashCommandHandler({
 });
 
 addEventListener('fetch', (event) => {
+  console.log('fetch', { request: event.request });
   event.respondWith(slashCommandHandler(event.request));
 });
