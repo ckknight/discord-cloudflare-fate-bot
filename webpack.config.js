@@ -18,6 +18,9 @@ module.exports = {
   mode: 'production',
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    fallback: {
+      buffer: require.resolve('buffer/')
+    }
   },
   module: {
     rules: [

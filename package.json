@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@glenstack/cf-workers-discord-bot": "^1.1.1",
+    "buffer": "^6.0.3",
     "random-js": "^2.1.0",
     "tslib": "^2.3.1"
   },
