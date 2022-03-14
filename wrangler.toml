@@ -1,11 +1,13 @@
 name = "fate-bot"
 type = "javascript"
 compatibility_date = "2022-03-14"
-
 account_id = "a3673bb565d54299326f31c3ff95fe8e"
 workers_dev = true
 route = ""
 zone_id = ""
+kv_namespaces = [
+  { binding = "COMMAND_META", id = "ed2f070c5d38443daa75b9d07d0375ba" }
+]
 
 [build]
 command = "npm run build"
