@@ -7,7 +7,7 @@ export const hello = createCommandPair(
     name: 'hello',
     description: 'Bot will say hello to you!',
   },
-  (interaction) => {
+  (_, interaction) => {
     const userID = getUser(interaction).id;
 
     return {

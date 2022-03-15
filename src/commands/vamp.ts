@@ -35,7 +35,6 @@ export const vamp = createCommandPair(
     ],
   } as const,
   (
-    _interaction,
     { dice, hunger, rouse = 0 },
   ) => {
     return {

@@ -17,7 +17,7 @@ export const roll = createCommandPair(
       },
     ],
   } as const,
-  async (_interaction, { dice: unparsedDiceValue }) => {
+  async ({ dice: unparsedDiceValue }) => {
     return (await import('./commandImpl')).roll(unparsedDiceValue);
   },
 );

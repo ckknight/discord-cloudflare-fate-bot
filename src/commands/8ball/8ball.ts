@@ -14,7 +14,7 @@ export const eightBall = createCommandPair(
       },
     ],
   } as const,
-  async (_interaction, { question }) => {
+  async ({ question }) => {
     return (await import('./impl')).eightBall(question);
   },
 );

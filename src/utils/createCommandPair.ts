@@ -64,13 +64,13 @@ type ExtractOptions<T> = T extends ReadonlyArray<{
 export function createCommandPair<TCommand extends ReadonlyApplicationCommand>(
   command: TCommand,
   handler: (
-    interaction: Interaction,
     options: ExtractOptions<NonNullable<TCommand['options']>>,
+    interaction: Interaction,
   ) => InteractionResponse | Promise<InteractionResponse>,
 ): ApplicationCommandPair {
   return [
     command as ApplicationCommand,
     (interaction) =>
-      handler(interaction, extractOptions(interaction.data?.options)),
+      handler(extractOptions(interaction.data?.options), interaction),
   ];
 }
