@@ -26,6 +26,11 @@ export const wordle = createCommandPair(
         name: 'list',
         description: 'List Wordle entries',
       },
+      {
+        type: ApplicationCommandOptionType.STRING,
+        name: 'test',
+        description: 'test entry',
+      },
     ],
   } as const,
   (opts) => {
