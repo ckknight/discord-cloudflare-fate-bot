@@ -31,13 +31,14 @@ export async function list({
   readonly userId: string;
   readonly serverId: string | undefined;
 }): Promise<InteractionResponse> {
-  const result = await WORDLE.list({
-    prefix: `entries/${serverId}/${userId}/`,
-  });
+  const prefix = `entries/${serverId}/${userId}/`;
+  const result = await WORDLE.list({ prefix });
   return {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
-      content: result.keys.map((key) => key.name).join('; '),
+      content: result.keys
+        .map((key) => key.name.substring(prefix.length))
+        .join('; '),
     },
   };
 }
