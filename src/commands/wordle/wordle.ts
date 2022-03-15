@@ -22,6 +22,19 @@ export const wordle = createCommandPair(
       },
       {
         type: ApplicationCommandOptionType.SUB_COMMAND,
+        name: 'get',
+        description: 'Add an entry for Wordle',
+        options: [
+          {
+            type: ApplicationCommandOptionType.STRING,
+            name: 'date',
+            description: `Date of the entry e.g. 2022-03-15T03:39:36.531Z`,
+            required: true,
+          },
+        ],
+      },
+      {
+        type: ApplicationCommandOptionType.SUB_COMMAND,
         name: 'list',
         description: 'List Wordle entries',
       },
@@ -34,6 +47,8 @@ export const wordle = createCommandPair(
     const impl = await import('./impl');
     if (opts.add != null) {
       return await impl.add({ userId, serverId, entry: opts.add.entry });
+    } else if (opts.get != null) {
+      return await impl.get({ userId, serverId, date: opts.get.date });
     } else {
       return await impl.list({ userId, serverId });
     }

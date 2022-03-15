@@ -42,3 +42,38 @@ export async function list({
     },
   };
 }
+
+export async function get({
+  userId,
+  serverId = 'null',
+  date,
+}: {
+  readonly userId: string;
+  readonly serverId: string | undefined;
+  readonly date: string;
+}): Promise<InteractionResponse> {
+  if (Number.isNaN(new Date(date).valueOf())) {
+    return {
+      type: InteractionResponseType.ChannelMessageWithSource,
+      data: {
+        content: `Invalid date: ${date}`,
+      },
+    };
+  }
+  const entry = await WORDLE.get(`entries/${serverId}/${userId}/${date}`);
+  if (entry == null) {
+    return {
+      type: InteractionResponseType.ChannelMessageWithSource,
+      data: {
+        content: `Unknown entry for ${date}`,
+      },
+    };
+  }
+
+  return {
+    type: InteractionResponseType.ChannelMessageWithSource,
+    data: {
+      content: `${date}: ${entry}`,
+    },
+  };
+}
