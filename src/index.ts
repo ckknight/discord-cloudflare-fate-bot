@@ -6,9 +6,6 @@ import { commands } from './commands';
 import { withLogging } from './utils/withLogging';
 import { calculateCommandsHash } from './utils/calculateCommandsHash';
 
-declare const APPLICATION_SECRET: string;
-declare const COMMAND_META: KVNamespace;
-
 const slashCommandHandler = createSlashCommandHandler({
   applicationID: '356117733638799360',
   applicationSecret: APPLICATION_SECRET,

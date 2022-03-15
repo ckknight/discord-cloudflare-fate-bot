@@ -5,6 +5,7 @@ import { hello } from './hello';
 import { roll } from './roll';
 import { shuffle, pick } from './shuffle';
 import { vamp } from './vamp';
+import { wordle } from './wordle';
 
 export const commands: ApplicationCommandPair[] = [
   hello,
@@ -14,4 +15,5 @@ export const commands: ApplicationCommandPair[] = [
   date,
   shuffle,
   pick,
+  wordle,
 ];

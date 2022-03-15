@@ -6,7 +6,8 @@ workers_dev = true
 route = ""
 zone_id = ""
 kv_namespaces = [
-  { binding = "COMMAND_META", id = "ed2f070c5d38443daa75b9d07d0375ba" }
+  { binding = "COMMAND_META", id = "ed2f070c5d38443daa75b9d07d0375ba" },
+  { binding = "WORDLE", id = "cb78ae4a22974b7b8c2fe8e884c90f55" }
 ]
 
 [build]
