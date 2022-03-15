@@ -6,8 +6,7 @@
   "main": "dist/worker.js",
   "scripts": {
     "build": "webpack",
-    "test": "ava",
-    "lint": "eslint src",
+    "test": "eslint src && ava",
     "format": "prettier --write '**/*.{js,css,json,md}'",
     "postinstall": "patch-package"
   },
