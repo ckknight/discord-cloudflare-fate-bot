@@ -29,11 +29,10 @@ export const wordle = createCommandPair(
     ],
   } as const,
   (opts) => {
-    console.log(opts);
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `TODO`,
+        content: `TODO: ${JSON.stringify(opts)}`,
       },
     };
   },

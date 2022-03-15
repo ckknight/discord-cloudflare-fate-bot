@@ -45,6 +45,13 @@ type ExtractValue<T> = T extends {
   ? T extends { readonly required: true }
     ? number
     : number | undefined
+  : T extends {
+      readonly type: ApplicationCommandOptionType.SUB_COMMAND;
+      readonly options: readonly ApplicationCommand[];
+    }
+  ? T extends { readonly required: true }
+    ? ExtractOptions<T['options']>
+    : ExtractOptions<T['options']> | undefined
   : unknown;
 
 type ExtractOptions<T> = T extends readonly {
