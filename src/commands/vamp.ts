@@ -33,14 +33,10 @@ export const vamp = createCommandPair(
         ],
       },
     ],
-  },
+  } as const,
   (
     _interaction,
-    {
-      dice,
-      hunger,
-      rouse = 0,
-    }: { dice: number; hunger: number; rouse?: number },
+    { dice, hunger, rouse = 0 },
   ) => {
     return {
       type: InteractionResponseType.ChannelMessageWithSource,

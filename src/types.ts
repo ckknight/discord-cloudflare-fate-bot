@@ -1,6 +1,7 @@
 import type {
   ApplicationCommand,
   ApplicationCommandInteractionData,
+  ApplicationCommandOptionType,
   GuildMember,
   InteractionResponse,
   InteractionType,
@@ -28,3 +29,23 @@ export type InteractionHandler = (
 ) => InteractionResponse | Promise<InteractionResponse>;
 
 export type ApplicationCommandPair = [ApplicationCommand, InteractionHandler];
+
+export interface ReadonlyApplicationCommandOptionChoice {
+  readonly name: string;
+  readonly value: string | number;
+};
+
+export interface ReadonlyApplicationCommandOption {
+  readonly type: ApplicationCommandOptionType;
+  readonly name: string;
+  readonly description: string;
+  readonly default?: boolean;
+  readonly required?: boolean;
+  readonly choices?: readonly ReadonlyApplicationCommandOptionChoice[];
+  readonly options?: readonly ReadonlyApplicationCommandOption[];
+};
+export interface ReadonlyApplicationCommand {
+  readonly name: string;
+  readonly description: string;
+  readonly options?: readonly ReadonlyApplicationCommandOption[];
+};
