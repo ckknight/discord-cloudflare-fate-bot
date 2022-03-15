@@ -56,7 +56,30 @@ type ExtractValue<T> = T extends {
 
 type ExtractOptions<T> = T extends readonly {
   readonly name: infer Key;
+  readonly type:
+    | ApplicationCommandOptionType.SUB_COMMAND
+    | ApplicationCommandOptionType.SUB_COMMAND_GROUP;
 }[]
+  ? {
+      [K in Cast<Key, string>]: {
+        [k in Cast<Key, string>]: k extends K
+          ? Exclude<
+              ExtractValue<
+                Extract<
+                  T[number],
+                  {
+                    readonly name: K;
+                  }
+                >
+              >,
+              undefined
+            >
+          : undefined;
+      };
+    }[Cast<Key, string>]
+  : T extends readonly {
+      readonly name: infer Key;
+    }[]
   ? {
       readonly [K in Cast<Key, string>]: ExtractValue<
         Extract<
