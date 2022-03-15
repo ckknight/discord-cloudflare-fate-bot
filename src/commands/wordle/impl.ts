@@ -12,7 +12,10 @@ export async function add({
   readonly serverId: string | undefined;
   readonly entry: string;
 }): Promise<InteractionResponse> {
-  await WORDLE.put(`${serverId}/${userId}/${new Date().toISOString()}`, entry);
+  await WORDLE.put(
+    `entries/${serverId}/${userId}/${new Date().toISOString()}`,
+    entry,
+  );
   return {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
@@ -29,7 +32,7 @@ export async function list({
   readonly serverId: string | undefined;
 }): Promise<InteractionResponse> {
   const result = await WORDLE.list({
-    prefix: `${serverId}/${userId}/`,
+    prefix: `entries/${serverId}/${userId}/`,
   });
   return {
     type: InteractionResponseType.ChannelMessageWithSource,
