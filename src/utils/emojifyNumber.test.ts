@@ -1,4 +1,4 @@
-import test, { ExecutionContext } from 'ava';
+import test, { type ExecutionContext } from 'ava';
 import { emojifyNumber } from './emojifyNumber';
 
 function macro(t: ExecutionContext) {
@@ -7,24 +7,8 @@ function macro(t: ExecutionContext) {
 }
 
 [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  -1,
-  42,
-  -42,
-  99,
-  100,
-  999,
-  1000,
-  9999,
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1, 42, -42, 99, 100, 999, 1000, 9999,
   10000,
-].forEach(input => test(`${input}`, macro))
+].forEach((input) => {
+  test(`${input}`, macro);
+});

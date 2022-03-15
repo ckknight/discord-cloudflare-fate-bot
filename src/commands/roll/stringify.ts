@@ -1,6 +1,6 @@
-import { Token } from "./tokenize";
+import type { Token } from './tokenize';
 
-function stringifyToken(token: Token) {
+function stringifyToken(token: Token): string {
   switch (token.type) {
     case 'dice':
       if (token.min === -1 && token.max === 1) {
@@ -17,6 +17,6 @@ function stringifyToken(token: Token) {
   }
 }
 
-export function stringify(tokens: readonly Token[]) {
+export function stringify(tokens: readonly Token[]): string {
   return tokens.map(stringifyToken).join(' ');
 }

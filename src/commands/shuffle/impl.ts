@@ -1,11 +1,14 @@
 import {
-  InteractionResponse,
   InteractionResponseType,
+  type InteractionResponse,
 } from '@glenstack/cf-workers-discord-bot';
 import { shuffle as randomShuffle, integer, nativeMath } from 'random-js';
 import { emojifyNumber } from '../../utils/emojifyNumber';
 
-function tryParse(unparsedItems: string, separator: string | RegExp) {
+function tryParse(
+  unparsedItems: string,
+  separator: RegExp | string,
+): string[] | null {
   const items = unparsedItems
     .split(separator)
     .map((x) => x.trim())
@@ -16,7 +19,7 @@ function tryParse(unparsedItems: string, separator: string | RegExp) {
   return null;
 }
 
-function parseItems(unparsedItems: string) {
+function parseItems(unparsedItems: string): string[] {
   if (unparsedItems.trim() === '') {
     return [];
   }

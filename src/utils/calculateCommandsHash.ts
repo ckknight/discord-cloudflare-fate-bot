@@ -1,5 +1,8 @@
-import { ApplicationCommand } from '@glenstack/cf-workers-discord-bot';
+import type { ApplicationCommand } from '@glenstack/cf-workers-discord-bot';
 
-export async function calculateCommandsHash(commands: readonly ApplicationCommand[]): Promise<string> {
+// eslint-disable-next-line @typescript-eslint/require-await
+export async function calculateCommandsHash(
+  commands: readonly ApplicationCommand[],
+): Promise<string> {
   return JSON.stringify(commands);
 }

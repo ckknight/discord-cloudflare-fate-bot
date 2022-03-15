@@ -1,23 +1,15 @@
-import { ApplicationCommandInteractionDataOption } from '@glenstack/cf-workers-discord-bot';
-import test, { ExecutionContext } from 'ava';
+import type { ApplicationCommandInteractionDataOption } from '@glenstack/cf-workers-discord-bot';
+import test, { type ExecutionContext } from 'ava';
 import { extractOptions } from './extractOptions';
 
 function macro(t: ExecutionContext) {
   const title = t.title.slice(1, -1);
-  const input:
-    | readonly ApplicationCommandInteractionDataOption[]
-    | null
-    | undefined = title === 'undefined' ? undefined : JSON.parse(title);
+  const input = JSON.parse(title) as
+    | readonly ApplicationCommandInteractionDataOption[];
   t.snapshot(extractOptions(input), 'result');
 }
 
-const cases: (
-  | readonly ApplicationCommandInteractionDataOption[]
-  | null
-  | undefined
-)[] = [
-  null,
-  undefined,
+const cases: (readonly ApplicationCommandInteractionDataOption[])[] = [
   [],
   [
     {
@@ -25,11 +17,11 @@ const cases: (
     },
     {
       name: 'bravo',
-      value: 'charlie'
+      value: 'charlie',
     },
     {
       name: 'delta',
-      value: 123.456
+      value: 123.456,
     },
     {
       name: 'echo',
@@ -48,12 +40,12 @@ const cases: (
         },
         {
           name: 'juliet',
-          value: 42
-        }
-      ]
-    }
+          value: 42,
+        },
+      ],
+    },
   ],
 ];
-cases.forEach((input) =>
-  test(`\`${input == null ? String(input) : JSON.stringify(input)}\``, macro),
-);
+cases.forEach((input) => {
+  test(`\`${JSON.stringify(input)}\``, macro);
+});

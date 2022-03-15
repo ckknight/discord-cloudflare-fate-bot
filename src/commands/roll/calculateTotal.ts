@@ -1,4 +1,4 @@
-import { Token } from './tokenize';
+import type { Token } from './tokenize';
 
 function sum(values: readonly number[]): number {
   return values.reduce((x, y) => x + y, 0);
@@ -6,7 +6,7 @@ function sum(values: readonly number[]): number {
 
 export function calculateTotal(
   tokens: readonly Token[],
-  rolls: ReadonlyArray<readonly number[]>,
+  rolls: readonly (readonly number[])[],
 ): number {
   let multiplier = 1;
   let total = 0;

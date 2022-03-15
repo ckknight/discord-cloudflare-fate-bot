@@ -6,12 +6,10 @@ export const date = createCommandPair(
     name: 'date',
     description: 'What is the current date and time?',
   },
-  () => {
-    return {
-      type: InteractionResponseType.ChannelMessageWithSource,
-      data: {
-        content: `It is currently ${new Date().toString()}!`,
-      },
-    };
-  },
-)
+  () => ({
+    type: InteractionResponseType.ChannelMessageWithSource,
+    data: {
+      content: `It is currently ${new Date().toString()}!`,
+    },
+  }),
+);

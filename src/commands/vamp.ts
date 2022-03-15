@@ -34,14 +34,10 @@ export const vamp = createCommandPair(
       },
     ],
   } as const,
-  (
-    { dice, hunger, rouse = 0 },
-  ) => {
-    return {
-      type: InteractionResponseType.ChannelMessageWithSource,
-      data: {
-        content: `Rolling \`${JSON.stringify({ dice, hunger, rouse })}\``,
-      },
-    };
-  },
+  ({ dice, hunger, rouse = 0 }) => ({
+    type: InteractionResponseType.ChannelMessageWithSource,
+    data: {
+      content: `Rolling \`${JSON.stringify({ dice, hunger, rouse })}\``,
+    },
+  }),
 );

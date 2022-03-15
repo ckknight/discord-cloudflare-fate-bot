@@ -1,21 +1,24 @@
-import {
+import type {
   ApplicationCommand,
   ApplicationCommandOptionType,
   InteractionResponse,
 } from '@glenstack/cf-workers-discord-bot';
-import {
+import type {
   ApplicationCommandPair,
   Interaction,
   ReadonlyApplicationCommand,
 } from '../types';
 import { extractOptions } from './extractOptions';
 
+// SUB_COMMAND = 1,
+// SUB_COMMAND_GROUP = 2,
+
 type Cast<X, Y> = X extends Y ? X : Y;
 
 type ExtractValue<T> = T extends {
-  readonly choices: ReadonlyArray<{
+  readonly choices: readonly {
     readonly value: infer V;
-  }>;
+  }[];
 }
   ? T extends { readonly required: true }
     ? V
@@ -28,10 +31,10 @@ type ExtractValue<T> = T extends {
     : boolean | undefined
   : T extends {
       readonly type:
-        | ApplicationCommandOptionType.STRING
-        | ApplicationCommandOptionType.USER
         | ApplicationCommandOptionType.CHANNEL
-        | ApplicationCommandOptionType.ROLE;
+        | ApplicationCommandOptionType.ROLE
+        | ApplicationCommandOptionType.STRING
+        | ApplicationCommandOptionType.USER;
     }
   ? T extends { readonly required: true }
     ? string
@@ -43,14 +46,12 @@ type ExtractValue<T> = T extends {
     ? number
     : number | undefined
   : unknown;
-// SUB_COMMAND = 1,
-// SUB_COMMAND_GROUP = 2,
 
-type ExtractOptions<T> = T extends ReadonlyArray<{
+type ExtractOptions<T> = T extends readonly {
   readonly name: infer Key;
-}>
+}[]
   ? {
-      [K in Cast<Key, string>]: ExtractValue<
+      readonly [K in Cast<Key, string>]: ExtractValue<
         Extract<
           T[number],
           {
@@ -59,7 +60,7 @@ type ExtractOptions<T> = T extends ReadonlyArray<{
         >
       >;
     }
-  : { [key in string]: unknown };
+  : { readonly [key in string]: unknown };
 
 export function createCommandPair<TCommand extends ReadonlyApplicationCommand>(
   command: TCommand,
@@ -71,6 +72,11 @@ export function createCommandPair<TCommand extends ReadonlyApplicationCommand>(
   return [
     command as ApplicationCommand,
     (interaction) =>
-      handler(extractOptions(interaction.data?.options), interaction),
+      handler(
+        extractOptions(interaction.data?.options ?? []) as ExtractOptions<
+          NonNullable<TCommand['options']>
+        >,
+        interaction,
+      ),
   ];
 }

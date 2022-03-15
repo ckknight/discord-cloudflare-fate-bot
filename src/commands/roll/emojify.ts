@@ -1,7 +1,11 @@
-import { emojifyNumeralDie, emojifyPercentageDie, emojifyPermillageDie } from '../../utils/emojifyNumber';
-import { Token } from './tokenize';
+import {
+  emojifyNumeralDie,
+  emojifyPercentageDie,
+  emojifyPermillageDie,
+} from '../../utils/emojifyNumber';
+import type { Token } from './tokenize';
 
-function emojifyFateDie(value: number) {
+function emojifyFateDie(value: number): string {
   switch (value) {
     case -1:
       return '⊟';
@@ -16,7 +20,7 @@ function emojifyFateDie(value: number) {
 
 export function emojify(
   tokens: readonly Token[],
-  rolls: ReadonlyArray<readonly number[]>,
+  rolls: readonly (readonly number[])[],
 ): string {
   const strings: string[] = [];
   const { length } = tokens;
@@ -28,7 +32,7 @@ export function emojify(
   for (let index = 0; index < length; ++index) {
     const token = tokens[index]!;
     switch (token.type) {
-      case 'dice':
+      case 'dice': {
         let emojifier: (value: number) => string = String;
         if (token.min === 1) {
           if (token.max <= 10) {
@@ -48,6 +52,7 @@ export function emojify(
           strings.push('(', roll.map(emojifier).join(' + '), ')');
         }
         break;
+      }
       case 'literal':
         strings.push(`${token.value}`);
         break;

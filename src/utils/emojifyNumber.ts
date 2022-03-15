@@ -1,4 +1,4 @@
-export function emojifyNumeralDie(value: number) {
+export function emojifyNumeralDie(value: number): string {
   switch (value) {
     case 0:
       return ':zero:';
@@ -27,7 +27,7 @@ export function emojifyNumeralDie(value: number) {
   }
 }
 
-export function emojifyPercentageDie(value: number) {
+export function emojifyPercentageDie(value: number): string {
   if (value === 100) {
     return ':100:';
   } else {
@@ -37,7 +37,7 @@ export function emojifyPercentageDie(value: number) {
   }
 }
 
-export function emojifyPermillageDie(value: number) {
+export function emojifyPermillageDie(value: number): string {
   if (value === 100) {
     return ':100:';
   } else {
@@ -47,7 +47,7 @@ export function emojifyPermillageDie(value: number) {
   }
 }
 
-export function emojifyNumber(value: number) {
+export function emojifyNumber(value: number): string {
   if (!Number.isSafeInteger(value) || value < 0) {
     return `${value}`;
   }

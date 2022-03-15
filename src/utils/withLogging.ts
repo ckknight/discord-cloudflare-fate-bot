@@ -1,4 +1,4 @@
-import { ApplicationCommandPair } from '../types';
+import type { ApplicationCommandPair } from '../types';
 
 export function withLogging(
   commands: ApplicationCommandPair[],

@@ -1,6 +1,4 @@
-import {
-  ApplicationCommandOptionType,
-} from '@glenstack/cf-workers-discord-bot';
+import { ApplicationCommandOptionType } from '@glenstack/cf-workers-discord-bot';
 import { createCommandPair } from '../../utils/createCommandPair';
 
 export const roll = createCommandPair(
@@ -17,7 +15,6 @@ export const roll = createCommandPair(
       },
     ],
   } as const,
-  async ({ dice: unparsedDiceValue }) => {
-    return (await import('./commandImpl')).roll(unparsedDiceValue);
-  },
+  async ({ dice: unparsedDiceValue }) =>
+    (await import('./commandImpl')).roll(unparsedDiceValue),
 );

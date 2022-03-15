@@ -1,4 +1,4 @@
-import test, { ExecutionContext } from 'ava';
+import test, { type ExecutionContext } from 'ava';
 import { MersenneTwister19937 } from 'random-js';
 import { calculateRolls } from './calculateRolls';
 import { emojify } from './emojify';
@@ -11,4 +11,6 @@ function macro(t: ExecutionContext) {
   t.snapshot(emojify(tokens, rolls), `with rolls ${JSON.stringify(rolls)}`);
 }
 
-fixtures.forEach(input => test(input, macro))
+fixtures.forEach((input) => {
+  test(input, macro);
+});

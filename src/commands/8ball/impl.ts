@@ -1,5 +1,5 @@
 import {
-  InteractionResponse,
+  type InteractionResponse,
   InteractionResponseType,
 } from '@glenstack/cf-workers-discord-bot';
 import { pick, nativeMath } from 'random-js';

@@ -15,9 +15,7 @@ export const shuffle = createCommandPair(
       },
     ],
   } as const,
-  async ({ items }) => {
-    return (await import('./impl')).shuffle(items);
-  },
+  async ({ items }) => (await import('./impl')).shuffle(items),
 );
 
 export const pick = createCommandPair(
@@ -34,7 +32,5 @@ export const pick = createCommandPair(
       },
     ],
   } as const,
-  async ({ items }) => {
-    return (await import('./impl')).pick(items);
-  },
+  async ({ items }) => (await import('./impl')).pick(items),
 );

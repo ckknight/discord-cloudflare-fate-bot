@@ -7,7 +7,7 @@ import { withLogging } from './utils/withLogging';
 import { calculateCommandsHash } from './utils/calculateCommandsHash';
 
 declare const APPLICATION_SECRET: string;
-declare const COMMAND_META: KVNamespace<string>;
+declare const COMMAND_META: KVNamespace;
 
 const slashCommandHandler = createSlashCommandHandler({
   applicationID: '356117733638799360',
@@ -19,9 +19,11 @@ const slashCommandHandler = createSlashCommandHandler({
 async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
   if (url.pathname === '/setup') {
-    const hash = await calculateCommandsHash(commands.map(([command]) => command));
+    const hash = await calculateCommandsHash(
+      commands.map(([command]) => command),
+    );
     const key = 'commands-hash';
-    if (await COMMAND_META.get(key) === hash) {
+    if ((await COMMAND_META.get(key)) === hash) {
       console.log('skipping setup, as there is no change');
       return new Response('No change');
     }
@@ -36,5 +38,3 @@ async function handler(request: Request): Promise<Response> {
 addEventListener('fetch', (event) => {
   event.respondWith(handler(event.request));
 });
-
-

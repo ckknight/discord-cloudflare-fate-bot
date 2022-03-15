@@ -32,8 +32,8 @@ export type ApplicationCommandPair = [ApplicationCommand, InteractionHandler];
 
 export interface ReadonlyApplicationCommandOptionChoice {
   readonly name: string;
-  readonly value: string | number;
-};
+  readonly value: number | string;
+}
 
 export interface ReadonlyApplicationCommandOption {
   readonly type: ApplicationCommandOptionType;
@@ -43,9 +43,9 @@ export interface ReadonlyApplicationCommandOption {
   readonly required?: boolean;
   readonly choices?: readonly ReadonlyApplicationCommandOptionChoice[];
   readonly options?: readonly ReadonlyApplicationCommandOption[];
-};
+}
 export interface ReadonlyApplicationCommand {
   readonly name: string;
   readonly description: string;
   readonly options?: readonly ReadonlyApplicationCommandOption[];
-};
+}

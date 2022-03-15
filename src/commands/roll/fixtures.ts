@@ -9,5 +9,5 @@ export const fixtures = [
   '  69d420  ',
   '2d8 + 2 + 3',
   'd2 - 7',
-  '6dF'
-]
+  '6dF',
+];
