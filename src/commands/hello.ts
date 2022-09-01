@@ -13,7 +13,7 @@ export const hello = createCommandPair(
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        content: `Hello, <@${userID}>!`,
+        content: `Hello, <@${userID}>`,
         allowed_mentions: {
           users: [userID],
         },
